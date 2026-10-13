@@ -9,15 +9,15 @@ approved mockup. Docs live in `docs/`: `idea.md`, `mvp.md`, `design-docs/mockups
 3. `/build-from-mockup <feature>` builds one approved mockup and verifies it.
 
 ## Stack
-- Language / framework:
-- Design system:
-- Backend / APIs:
+- Language / framework: Next JS
+- Design system: Material Design 3
+- Backend / APIs: https://open-platform.theguardian.com/documentation/
 
 ## Scripts (run from the repo root)
-- Dev:
-- Build:
-- Test:
-- Lint / typecheck:
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Test: `npm test`
+- Lint / typecheck: `npm run lint` · `npm run typecheck`
 
 ## Rules
 - One feature per build request. Design changes go into the mockup first.
