@@ -1,11 +1,5 @@
 # Idea: Sport-Radar
 Loads Sports news from Guardian open API. 
-- show list of news and click on each of them will show news details. 
-- user can search through the news. 
-- show list of news in List and Grid stype.
-- there are 4 different color themes themes with dark and light.
- Write freely. Nothing here is a commitment; `/define-mvp` reads this and cuts the MVP from it.
-
 
 ## Everything it could do
 - show list of news and click on each of them will show news details. 
@@ -14,7 +8,7 @@ Loads Sports news from Guardian open API.
 - there are 4 different color themes themes with dark and light.
 
 ## Data and backend
-APIs, services or databases it will use. Link docs or OpenAPI specs. Say which need a key
+Guardian Open API: https://open-platform.theguardian.com/documentation/
 (keys go in `.env.local`, never in this file).
 
 ## Platforms
