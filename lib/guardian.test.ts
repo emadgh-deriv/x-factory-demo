@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { fetchArticle, fetchSportPage, GuardianError } from "./guardian";
+import { fetchArticle, fetchSportPage, GuardianError, searchSport } from "./guardian";
 
 function mockFetch(status: number, body: unknown) {
   const fn = vi.fn().mockResolvedValue(new Response(JSON.stringify(body), { status }));
@@ -70,6 +70,25 @@ describe("fetchSportPage", () => {
   it("throws unavailable on 5xx", async () => {
     mockFetch(503, {});
     await expect(fetchSportPage(1)).rejects.toBeInstanceOf(GuardianError);
+  });
+});
+
+describe("searchSport", () => {
+  it("searches sport and football, newest first, and returns the total", async () => {
+    const fn = mockFetch(200, { response: { status: "ok", total: 17734, currentPage: 2, pages: 887, results: [] } });
+    const page = await searchSport("world cup", 2);
+    const url = new URL(String(fn.mock.calls[0][0]));
+    expect(url.searchParams.get("q")).toBe("world cup");
+    expect(url.searchParams.get("section")).toBe("sport|football");
+    expect(url.searchParams.get("order-by")).toBe("newest");
+    expect(url.searchParams.get("page")).toBe("2");
+    expect(url.searchParams.get("page-size")).toBe("20");
+    expect(page).toEqual({ currentPage: 2, pages: 887, total: 17734, items: [] });
+  });
+
+  it("throws rate-limited on 429", async () => {
+    mockFetch(429, {});
+    await expect(searchSport("x", 1)).rejects.toMatchObject({ kind: "rate-limited" });
   });
 });
 

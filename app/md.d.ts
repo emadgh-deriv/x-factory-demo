@@ -20,6 +20,7 @@ declare module "react" {
       "md-icon-button": MdProps;
       "md-circular-progress": MdProps;
       "md-filter-chip": MdProps;
+      "md-assist-chip": MdProps;
     }
   }
 }

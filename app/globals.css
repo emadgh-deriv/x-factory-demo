@@ -225,3 +225,30 @@ md-circular-progress { --md-circular-progress-size: 20px; }
 .seg button:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: -3px; }
 .seg button.on { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
 .seg .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); }
+
+/* Search 2 · search bar replaces the top app bar */
+.sbar { gap: 8px; padding: 0 8px; }
+.sfield {
+  flex: 1; max-width: 720px; margin: 0 auto; height: 48px; min-width: 0;
+  display: flex; align-items: center; gap: 4px; padding: 0 4px 0 16px; border-radius: 9999px;
+  background: var(--md-sys-color-surface-container-high); color: var(--md-sys-color-on-surface-variant);
+}
+.sfield:focus-within { outline: 2px solid var(--md-sys-color-primary); outline-offset: -2px; }
+.sfield input {
+  flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; padding: 0 4px;
+  color: var(--md-sys-color-on-surface); font: inherit; font-size: 16px; line-height: 24px; letter-spacing: 0.5px;
+}
+.sfield input::placeholder { color: var(--md-sys-color-on-surface-variant); }
+.sfield input::-webkit-search-cancel-button { display: none; }
+.sfield-sp, .sbar-sp { flex: none; width: 40px; }
+/* 4 · Try chips (wrap) */
+.sugg h2 { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; color: var(--md-sys-color-on-surface-variant); margin: 24px 0 12px; }
+.sugg-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* 5 · Count line */
+.count { font-size: 14px; line-height: 20px; letter-spacing: 0.25px; color: var(--md-sys-color-on-surface-variant); margin: 16px 0 16px; }
+/* 6 · Matched words: bold, no colour */
+.hl mark { background: none; color: inherit; font-weight: 700; }
+@media (orientation: landscape) and (max-height: 500px) {
+  .count { margin: 8px 0 8px; }
+  .sugg h2 { margin: 12px 0 8px; }
+}

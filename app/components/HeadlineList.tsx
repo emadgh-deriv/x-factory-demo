@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { ContentType } from "@/lib/content-type";
 import type { Headline, SportPage } from "@/lib/guardian";
+import { highlightTerms } from "@/lib/search";
 import { HeadlineCard } from "./HeadlineCard";
 
 const KEY_BASE = "sport-radar:list";
@@ -27,9 +28,12 @@ function readSaved(KEY: string): Saved | null {
 }
 
 /** 3 · cards, 7 · load more. Restores loaded pages and scroll position when coming back. */
-export function HeadlineList({ initial, type = null }: { initial: SportPage; type?: ContentType | null }) {
-  // Each filter keeps its own saved list, so Back restores the one the reader left.
-  const KEY = type ? `${KEY_BASE}:${type}` : KEY_BASE;
+type Props = { initial: SportPage; type?: ContentType | null; q?: string };
+
+export function HeadlineList({ initial, type = null, q }: Props) {
+  // Each filter and each search keeps its own saved list, so Back restores the one the reader left.
+  const KEY = q ? `${KEY_BASE}:q:${q}` : type ? `${KEY_BASE}:${type}` : KEY_BASE;
+  const terms = useMemo(() => (q ? highlightTerms(q) : undefined), [q]);
   const [items, setItems] = useState(initial.items);
   const [page, setPage] = useState(initial.currentPage);
   const [pages, setPages] = useState(initial.pages);
@@ -67,7 +71,10 @@ export function HeadlineList({ initial, type = null }: { initial: SportPage; typ
     setLoading(true);
     setFailed(false);
     try {
-      const res = await fetch(`/api/sport?page=${page + 1}${type ? `&type=${type}` : ""}`);
+      const url = q
+        ? `/api/search?${new URLSearchParams({ q, page: String(page + 1) })}`
+        : `/api/sport?page=${page + 1}${type ? `&type=${type}` : ""}`;
+      const res = await fetch(url);
       if (!res.ok) throw new Error(String(res.status));
       const next = (await res.json()) as SportPage;
       setItems((cur) => dedupe([...cur, ...next.items]));
@@ -84,7 +91,7 @@ export function HeadlineList({ initial, type = null }: { initial: SportPage; typ
     <>
       <div className="cards">
         {items.map((item) => (
-          <HeadlineCard key={item.id} item={item} onOpen={save} />
+          <HeadlineCard key={item.id} item={item} onOpen={save} terms={terms} />
         ))}
       </div>
       {page < pages && (

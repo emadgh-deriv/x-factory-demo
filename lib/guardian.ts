@@ -15,7 +15,7 @@ export type Headline = {
   live: boolean;
 };
 
-export type SportPage = { currentPage: number; pages: number; items: Headline[] };
+export type SportPage = { currentPage: number; pages: number; items: Headline[]; total?: number };
 
 export type Article = {
   id: string;
@@ -63,6 +63,20 @@ async function call(path: string, params: Record<string, string>, revalidate: nu
   return (await res.json()).response;
 }
 
+const LIST_FIELDS = "thumbnail,trailText,byline";
+
+function toHeadline(c: RawContent): Headline {
+  return {
+    id: c.id,
+    headline: c.webTitle,
+    trail: stripHtml(c.fields?.trailText),
+    byline: c.fields?.byline ?? "",
+    thumbnail: c.fields?.thumbnail ?? null,
+    published: c.webPublicationDate,
+    live: c.type === "liveblog",
+  };
+}
+
 export async function fetchSportPage(page: number, type: ContentType | null = null): Promise<SportPage> {
   const r = await call(
     "search",
@@ -72,22 +86,36 @@ export async function fetchSportPage(page: number, type: ContentType | null = nu
       "order-by": "newest",
       "page-size": "20",
       page: String(page),
-      "show-fields": "thumbnail,trailText,byline",
+      "show-fields": LIST_FIELDS,
     },
     60,
   );
   return {
     currentPage: r.currentPage ?? page,
     pages: r.pages ?? 0,
-    items: (r.results as RawContent[]).map((c) => ({
-      id: c.id,
-      headline: c.webTitle,
-      trail: stripHtml(c.fields?.trailText),
-      byline: c.fields?.byline ?? "",
-      thumbnail: c.fields?.thumbnail ?? null,
-      published: c.webPublicationDate,
-      live: c.type === "liveblog",
-    })),
+    items: (r.results as RawContent[]).map(toHeadline),
+  };
+}
+
+/** Search: football is its own Guardian section, so it is included (mockup Q1). */
+export async function searchSport(q: string, page: number): Promise<SportPage> {
+  const r = await call(
+    "search",
+    {
+      q,
+      section: "sport|football",
+      "order-by": "newest",
+      "page-size": "20",
+      page: String(page),
+      "show-fields": LIST_FIELDS,
+    },
+    60,
+  );
+  return {
+    currentPage: r.currentPage ?? page,
+    pages: r.pages ?? 0,
+    total: r.total ?? 0,
+    items: ((r.results ?? []) as RawContent[]).map(toHeadline),
   };
 }
 

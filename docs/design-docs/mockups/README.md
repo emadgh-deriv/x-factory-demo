@@ -8,3 +8,4 @@ Facts shared by all mockups: [PROFILE.md](PROFILE.md).
 | 2026-10-12 | List / grid view toggle | [md](2026-10-12-list-grid-toggle.md) · [html](2026-10-12-list-grid-toggle.html) | built |
 | 2026-10-12 | 4 colour themes × light/dark | [md](2026-10-12-colour-themes.md) · [html](2026-10-12-colour-themes.html) | built |
 | 2026-10-13 | Content-type filter (articles, live blogs, galleries, video) | [md](2026-10-13-content-type-filter.md) · [html](2026-10-13-content-type-filter.html) | built |
+| 2026-10-13 | Search sport news | [md](2026-10-13-search.md) · [html](2026-10-13-search.html) | built |
