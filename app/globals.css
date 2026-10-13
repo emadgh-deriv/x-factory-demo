@@ -176,31 +176,3 @@ md-circular-progress { --md-circular-progress-size: 20px; }
   .grid .tr { display: none; }
 }
 
-/* Colour themes 1–4 · theme menu */
-/* Anchored to the sticky .bar, so it sits 12 px from the right edge on every screen. */
-.tm-wrap { display: contents; }
-.tm {
-  position: absolute; z-index: 20; top: 60px; right: 12px; width: 288px; padding: 16px; border-radius: 16px;
-  background: var(--md-sys-color-surface-container); color: var(--md-sys-color-on-surface);
-  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-.tm h3 { margin: 0 0 12px; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: 0.1px; color: var(--md-sys-color-on-surface-variant); }
-.sw { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 0 4px; }
-.dot {
-  width: 48px; height: 48px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; color: #fff;
-  display: flex; align-items: center; justify-content: center;
-}
-.dot.on { outline: 2px solid var(--md-sys-color-on-surface); outline-offset: 3px; }
-.dot:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: 3px; }
-.dot .icon, .seg .icon { font-size: 18px; width: 18px; overflow: hidden; }
-.seg { display: flex; height: 40px; border: 1px solid var(--md-sys-color-outline); border-radius: 20px; overflow: hidden; }
-.seg button {
-  position: relative; flex: 1 1 0; min-width: 0; display: flex; align-items: center; justify-content: center; padding: 0 8px;
-  border: 0; border-left: 1px solid var(--md-sys-color-outline); background: none; color: var(--md-sys-color-on-surface);
-  font: 500 14px/20px var(--md-ref-typeface-plain); letter-spacing: 0.1px; cursor: pointer;
-}
-.seg button:first-child { border-left: 0; }
-.seg button:hover { background: color-mix(in srgb, var(--md-sys-color-on-surface) 8%, transparent); }
-.seg button:focus-visible { outline: 3px solid var(--md-sys-color-primary); outline-offset: -3px; }
-.seg button.on { background: var(--md-sys-color-secondary-container); color: var(--md-sys-color-on-secondary-container); }
-.seg .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); }
