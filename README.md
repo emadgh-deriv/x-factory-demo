@@ -1,6 +1,6 @@
-# XFactory
+# xFactory Guardian Sport News Radar
 
-A starter template for building a product with AI and skills **as working MVP first, then one feature at a time, each designed as a mockup before any code is written.**
+A starter demo for building a Sport news reader from [Guardian APIs](open-platform.theguardian.com) **as working MVP first, then one feature at a time, each designed as a mockup before any code is written.**
 
 ![XFactory flow: Idea, Working MVP, Mockup, Iterate, AI builds it, Ship on the MVP](x-factory-flow.png)
 
@@ -32,15 +32,15 @@ x-factory/
 ```
 
 
-| File                                                     | Who writes it                 | When                                   |
-| -------------------------------------------------------- | ----------------------------- | -------------------------------------- |
-| `docs/idea.md`                                           | You                           | Before anything else                   |
-| `AGENTS.md`                                              | You                           | Once you pick the stack                |
-| `docs/mvp.md`                                            | `/define-mvp`                 | Step 2, you iterate and approve        |
-| `docs/design-docs/mockups/PROFILE.md`                    | `/feature-mockup` (first run) | Once, then kept current                |
+| File                                                     | Who writes it                 | When                                    |
+| -------------------------------------------------------- | ----------------------------- | --------------------------------------- |
+| `docs/idea.md`                                           | You                           | Before anything else                    |
+| `AGENTS.md`                                              | You                           | Once you pick the stack                 |
+| `docs/mvp.md`                                            | `/define-mvp`                 | Step 2, you iterate and approve         |
+| `docs/design-docs/mockups/PROFILE.md`                    | `/feature-mockup` (first run) | Once, then kept current                 |
 | `docs/design-docs/mockups/README.md`                     | `/feature-mockup`             | One row per mockup, status kept current |
-| `docs/design-docs/mockups/<date>-<feature>.md` + `.html` | `/feature-mockup`             | Every feature, you iterate and approve |
-| `docs/plans/<date>-<feature>.md`                         | `/build-from-mockup`          | Every feature                          |
+| `docs/design-docs/mockups/<date>-<feature>.md` + `.html` | `/feature-mockup`             | Every feature, you iterate and approve  |
+| `docs/plans/<date>-<feature>.md`                         | `/build-from-mockup`          | Every feature                           |
 
 
 
