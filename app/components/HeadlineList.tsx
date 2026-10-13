@@ -1,10 +1,11 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import type { ContentType } from "@/lib/content-type";
 import type { Headline, SportPage } from "@/lib/guardian";
 import { HeadlineCard } from "./HeadlineCard";
 
-const KEY = "sport-radar:list";
+const KEY_BASE = "sport-radar:list";
 const MAX_AGE_MS = 30 * 60 * 1000;
 
 type Saved = { items: Headline[]; page: number; pages: number; scrollY: number; at: number };
@@ -14,7 +15,7 @@ function dedupe(items: Headline[]): Headline[] {
   return items.filter((i) => (seen.has(i.id) ? false : (seen.add(i.id), true)));
 }
 
-function readSaved(): Saved | null {
+function readSaved(KEY: string): Saved | null {
   try {
     const s = JSON.parse(sessionStorage.getItem(KEY) ?? "null") as Saved | null;
     // One-shot: a later reload or fresh visit starts at the top.
@@ -26,7 +27,9 @@ function readSaved(): Saved | null {
 }
 
 /** 3 · cards, 7 · load more. Restores loaded pages and scroll position when coming back. */
-export function HeadlineList({ initial }: { initial: SportPage }) {
+export function HeadlineList({ initial, type = null }: { initial: SportPage; type?: ContentType | null }) {
+  // Each filter keeps its own saved list, so Back restores the one the reader left.
+  const KEY = type ? `${KEY_BASE}:${type}` : KEY_BASE;
   const [items, setItems] = useState(initial.items);
   const [page, setPage] = useState(initial.currentPage);
   const [pages, setPages] = useState(initial.pages);
@@ -35,14 +38,14 @@ export function HeadlineList({ initial }: { initial: SportPage }) {
   const restoreY = useRef<number | null>(null);
 
   useLayoutEffect(() => {
-    const saved = readSaved();
+    const saved = readSaved(KEY);
     if (!saved) return;
     // Fresh first page from the server, then the extra pages the reader had loaded.
     setItems(dedupe([...initial.items, ...saved.items]));
     setPage(Math.max(initial.currentPage, saved.page));
     setPages(Math.max(initial.pages, saved.pages));
     restoreY.current = saved.scrollY;
-  }, [initial]);
+  }, [initial, KEY]);
 
   useEffect(() => {
     if (restoreY.current === null) return;
@@ -58,13 +61,13 @@ export function HeadlineList({ initial }: { initial: SportPage }) {
     } catch {
       // Storage unavailable: back still works, without restoring position.
     }
-  }, [items, page, pages]);
+  }, [items, page, pages, KEY]);
 
   const loadMore = async () => {
     setLoading(true);
     setFailed(false);
     try {
-      const res = await fetch(`/api/sport?page=${page + 1}`);
+      const res = await fetch(`/api/sport?page=${page + 1}${type ? `&type=${type}` : ""}`);
       if (!res.ok) throw new Error(String(res.status));
       const next = (await res.json()) as SportPage;
       setItems((cur) => dedupe([...cur, ...next.items]));

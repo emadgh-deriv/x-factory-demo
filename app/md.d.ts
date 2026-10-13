@@ -6,6 +6,8 @@ type MdProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement> & {
   target?: string;
   indeterminate?: boolean;
   "has-icon"?: boolean;
+  selected?: boolean;
+  label?: string;
   "aria-label"?: string;
 };
 
@@ -17,6 +19,7 @@ declare module "react" {
       "md-outlined-button": MdProps;
       "md-icon-button": MdProps;
       "md-circular-progress": MdProps;
+      "md-filter-chip": MdProps;
     }
   }
 }

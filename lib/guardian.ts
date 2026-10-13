@@ -1,5 +1,6 @@
 import "server-only";
 import { stripHtml } from "./format";
+import type { ContentType } from "./content-type";
 import { parseMainFigure, sanitizeBody, sanitizeInline, type MainImage } from "./sanitize";
 
 const BASE = "https://content.guardianapis.com";
@@ -62,10 +63,11 @@ async function call(path: string, params: Record<string, string>, revalidate: nu
   return (await res.json()).response;
 }
 
-export async function fetchSportPage(page: number): Promise<SportPage> {
+export async function fetchSportPage(page: number, type: ContentType | null = null): Promise<SportPage> {
   const r = await call(
     "search",
     {
+      ...(type ? { type } : {}),
       section: "sport",
       "order-by": "newest",
       "page-size": "20",

@@ -8,6 +8,7 @@ export function MdLoader() {
     void import("@material/web/button/filled-button.js");
     void import("@material/web/button/filled-tonal-button.js");
     void import("@material/web/button/outlined-button.js");
+    void import("@material/web/chips/filter-chip.js");
     void import("@material/web/iconbutton/icon-button.js");
     void import("@material/web/progress/circular-progress.js");
   }, []);

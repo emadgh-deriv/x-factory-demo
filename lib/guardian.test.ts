@@ -50,6 +50,18 @@ describe("fetchSportPage", () => {
     });
   });
 
+  it("adds type= only when a filter is set", async () => {
+    const empty = { response: { status: "ok", currentPage: 1, pages: 0, results: [] } };
+    let fn = mockFetch(200, empty);
+    await fetchSportPage(2, "liveblog");
+    const url = new URL(String(fn.mock.calls[0][0]));
+    expect(url.searchParams.get("type")).toBe("liveblog");
+    expect(url.searchParams.get("page")).toBe("2");
+    fn = mockFetch(200, empty);
+    await fetchSportPage(1);
+    expect(new URL(String(fn.mock.calls[0][0])).searchParams.has("type")).toBe(false);
+  });
+
   it("throws rate-limited on 429", async () => {
     mockFetch(429, { message: "API rate limit exceeded" });
     await expect(fetchSportPage(1)).rejects.toMatchObject({ kind: "rate-limited" });
