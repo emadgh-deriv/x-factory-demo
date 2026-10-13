@@ -55,7 +55,7 @@ x-factory/
 ### 1. Start the project
 
 ```bash
-npx degit deriv-com/x-factory <your-project>
+npx degit emadgh-deriv/x-factory <your-project>
 ```
 
 Then in the project:
