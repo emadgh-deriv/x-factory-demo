@@ -12,7 +12,7 @@ Guardian Open API: https://open-platform.theguardian.com/documentation/
 (keys go in `.env.local`, never in this file).
 
 ## Platforms
-Desktop web, mobile web, native app? Any must-have device or orientation?
+Desktop web, mobile web, landscape and horizontal
 
 ## Look and feel
 We use Material Design 3 Design system
