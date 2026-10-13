@@ -3,7 +3,6 @@
 A starter demo for building a Sport news reader from [Guardian APIs](open-platform.theguardian.com) **as working MVP first, then one feature at a time, each designed as a mockup before any code is written.**
 
 [Live Demo](https://x-factory-demo.vercel.app/)
-
 [Presentation](https://github.com/emadgh-deriv/x-factory-demo/tree/master/presentation)
 
 ![XFactory flow: Idea, Working MVP, Mockup, Iterate, AI builds it, Ship on the MVP](x-factory-flow.png)
