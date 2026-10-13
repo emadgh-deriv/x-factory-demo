@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ThemeMenu } from "./ThemeMenu";
 
-type Props = { back?: boolean; webUrl?: string; action?: React.ReactNode };
+type Props = { back?: boolean; webUrl?: string };
 
-/** 1 · Small top app bar. 9 · back, 10 · open original (article only). Theme menu on every screen. */
-export function TopBar({ back, webUrl, action }: Props) {
+/** 1 · Small top app bar. 9 · back, 10 · open original (article only). */
+export function TopBar({ back, webUrl }: Props) {
   const router = useRouter();
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,8 +34,6 @@ export function TopBar({ back, webUrl, action }: Props) {
       )}
       <Link href="/" className="title">Sport-Radar</Link>
       <span className="sp" />
-      {action}
-      <ThemeMenu />
       {webUrl && (
         <md-icon-button href={webUrl} target="_blank" aria-label="Read on The Guardian" title="Read on The Guardian">
           <span className="icon">open_in_new</span>

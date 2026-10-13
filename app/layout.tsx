@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Roboto } from "next/font/google";
-import { cookies } from "next/headers";
 import { MdLoader } from "./components/MdLoader";
-import { MODE_COOKIE, parseMode, parseTheme, THEME_COOKIE } from "@/lib/theme";
 import "./globals.css";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"], display: "swap", variable: "--font-roboto" });
@@ -14,13 +12,9 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  // Stored theme on first paint, no flash. No stored mode → tokens.css follows the device.
-  const jar = await cookies();
-  const theme = parseTheme(jar.get(THEME_COOKIE)?.value);
-  const mode = parseMode(jar.get(MODE_COOKIE)?.value);
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={roboto.variable} data-theme={theme} data-mode={mode}>
+    <html lang="en" className={roboto.variable}>
       <head>
         {/* Icon ligatures must not flash as text, hence display=block. */}
         {/* eslint-disable-next-line @next/next/no-page-custom-font, @next/next/google-font-display */}

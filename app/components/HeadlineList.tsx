@@ -79,11 +79,9 @@ export function HeadlineList({ initial }: { initial: SportPage }) {
 
   return (
     <>
-      <div className="cards">
-        {items.map((item) => (
-          <HeadlineCard key={item.id} item={item} onOpen={save} />
-        ))}
-      </div>
+      {items.map((item) => (
+        <HeadlineCard key={item.id} item={item} onOpen={save} />
+      ))}
       {page < pages && (
         <div className="more">
           {failed && !loading ? (

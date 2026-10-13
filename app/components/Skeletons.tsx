@@ -1,7 +1,7 @@
-/** 3 · List loading: card-sized skeletons. 8 · Inside `.col.grid` they lay out as tiles. */
+/** 3 · List loading: card-sized skeletons. */
 export function CardSkeletons({ count = 6 }: { count?: number }) {
   return (
-    <div className="cards" aria-busy="true" aria-label="Loading sport news">
+    <div aria-busy="true" aria-label="Loading sport news">
       {Array.from({ length: count }, (_, i) => (
         <div className="card sk" key={i}>
           <div className="thumb">
